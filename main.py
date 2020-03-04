@@ -15,7 +15,7 @@ def run_bot():
 
     dispatcher.add_handler(CommandHandler('start', bot.start))
     dispatcher.add_handler(CommandHandler('caps', bot.caps))
-    dispatcher.add_handler(MessageHandler(Filters.text, bot.echo))
+    # dispatcher.add_handler(MessageHandler(Filters.text, bot.echo))
     dispatcher.add_handler(CommandHandler('calendar', bot.calendar))
 
     updater.start_polling()

@@ -10,7 +10,7 @@ DATETIME_TEMPLATE = '%Y-%m-%dT%H:%M:%S'  # 2018-09-03T14:10:00+03:00
 
 
 def get_service():
-    store = file.Storage('token.json')
+    store = file.Storage('credential.json')
     creds = store.get()
     if not creds or creds.invalid:
         flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
