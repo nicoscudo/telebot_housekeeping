@@ -1,8 +1,8 @@
-from calendar import cal_setup
+from bot_pkg import get_events
 
 
 def start(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Hello I'm a bot, talk to me!!!")
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Hello pussy I'm a bot, talk to me!!!")
 
 
 def echo(update, context):
@@ -14,8 +14,8 @@ def caps(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=text_caps)
 
 
-def calendar(update, context):
-    events = cal_setup.get_calendar_service()
+def calendar(bot, update):
+    events = get_events.get_events()
     res = ""
     for ev in events:
         tm = ev[0].strftime("%H:%M") + "-" + ev[2].strftime("%H:%M")
