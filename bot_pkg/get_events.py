@@ -1,21 +1,42 @@
 from __future__ import print_function
-from datetime import datetime, timedelta
+import datetime
+import pickle
+import os.path
 from googleapiclient.discovery import build
-from httplib2 import Http
-from oauth2client import file, client, tools
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from datetime import datetime, timedelta
 
-SCOPES = 'https://www.googleapis.com/auth/calendar'
+# If modifying these scopes, delete the file token.pickle.
+SCOPES = ['https://www.googleapis.com/auth/calendar']
+CREDENTIALS_FILE = '/Users/federico/PycharmProjects/telebot_housekeeping/bot_pkg/credentials.json'
 DAYS_DELTA = 1
 DATETIME_TEMPLATE = '%Y-%m-%dT%H:%M:%S'  # 2018-09-03T14:10:00+03:00
 
 
 def get_service():
-    store = file.Storage('credential.json')
-    creds = store.get()
-    if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
-        creds = tools.run_flow(flow, store)
-    return build('calendar', 'v3', http=creds.authorize(Http()), cache_discovery=False)
+    creds = None
+    # The file token.pickle stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                CREDENTIALS_FILE, SCOPES)
+            creds = flow.run_local_server(port=0)
+
+        # Save the credentials for the next run
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+
+    service = build('calendar', 'v3', credentials=creds)
+    return service
 
 
 def get_events():
