@@ -1,5 +1,4 @@
 from __future__ import print_function
-import datetime
 import pickle
 import os.path
 from googleapiclient.discovery import build
@@ -9,7 +8,7 @@ from datetime import datetime, timedelta
 
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
-CREDENTIALS_FILE = 'path_to_file/credentials.json'
+CREDENTIALS_FILE = '/Users/federico/PycharmProjects/telebot_housekeeping/bot_pkg/credentials.json'
 DAYS_DELTA = 1
 DATETIME_TEMPLATE = '%Y-%m-%dT%H:%M:%S'  # 2018-09-03T14:10:00+03:00
 
@@ -41,9 +40,8 @@ def get_service():
 
 def list_events():
     service = get_service()
-    now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+    now = datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
     end_date = (datetime.utcnow() + timedelta(days=DAYS_DELTA)).isoformat() + 'Z'
-    print('Getting List of 10 events')
     events_result = service.events().list(
         calendarId='primary', timeMin=now, timeMax=end_date, singleEvents=True,
         orderBy='startTime').execute()
@@ -58,7 +56,7 @@ def list_events():
         end = event['end'].get('dateTime')
         dt_end = datetime.strptime(end[:-6], DATETIME_TEMPLATE)
         res.append((dt, event['summary'], dt_end))
-    return res  # [(start, summary, end),...]
+    return res
 
 
 if __name__ == '__main__':
