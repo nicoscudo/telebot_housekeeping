@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
-CREDENTIALS_FILE = '/Users/federico/PycharmProjects/telebot_housekeeping/bot_pkg/credentials.json'
+CREDENTIALS_FILE = 'path_to_file/credentials.json'
 DAYS_DELTA = 1
 DATETIME_TEMPLATE = '%Y-%m-%dT%H:%M:%S'  # 2018-09-03T14:10:00+03:00
 
