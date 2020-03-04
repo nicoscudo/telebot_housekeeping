@@ -11,9 +11,9 @@ dispatcher = updater.dispatcher
 start_handler = CommandHandler('start',bot.start)
 caps_handler = CommandHandler('caps', bot.caps)
 echo_handler = MessageHandler(Filters.text, bot.echo)
+calendar_handler = CommandHandler('calendar', bot.calendar)
 
-
-
+dispatcher.add_handler(calendar_handler)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(caps_handler)
 dispatcher.add_handler(echo_handler)
