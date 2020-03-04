@@ -1,4 +1,4 @@
-from bot_pkg import get_events
+from bot_pkg import calendar_calls
 
 
 def start(update, context):
@@ -15,7 +15,7 @@ def caps(update, context):
 
 
 def calendar(bot, update):
-    events = get_events.get_events()
+    events = calendar_calls.get_events()
     res = ""
     for ev in events:
         tm = ev[0].strftime("%H:%M") + "-" + ev[2].strftime("%H:%M")
