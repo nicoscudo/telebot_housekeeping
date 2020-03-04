@@ -1,6 +1,6 @@
 # telebot_housekeeping
 
-##REQUIREMENTS:
+## REQUIREMENTS:
 1)Integration with Tricount.app; (due vie, o aspettiamo tricount o proviamo con settle up)
 2)Calendar integration:
     -Friends coming in Turin
